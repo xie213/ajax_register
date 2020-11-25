@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src='../static/jq/jquery-2.1.0.js'></script>
+</head>
+<body>
+<form action="" method="post">
+    <table align="center" border="0">
+        <td>
+            <td><input type="text" name="ca" placeholder="班级" id="c1"></td>
+            <td><input type="text" name="nm" placeholder="姓名" id="u1"></td>
+            <td><input type="text" name="em" placeholder="email" id="e1"></td>
+            <td><input type="text" name="paw" placeholder="密码" id="p2"></td>
+            <td><button><a href="javaScript:zhuce()">确定</a></button></td>
+            <td><a href="{{url_for('login')}}">登录</a></td>
+        </td>
+    </table>
+</form>
+</form>
+<div class="container">
+        <table class="table table-striped"  align="center" >
+            <thead>
+            <tr>
+                <th>班级</th>
+                <th>姓名 </th>
+                <th>email</th>
+                <th>密码</th>
+            </tr>
+            </thead>
+            <tbody id="hh" align="center">
+
+            </tbody>
+        </table>
+    </div>
+
+</form>
+<script>
+    function zhuce() {
+        var cc = $('#c1').val()
+        var uu = $('#u1').val()
+        var ee = $('#e1').val()
+        var pp = $('#p2').val()
+        $("#hh").empty()
+        $.ajax({
+            type:"post",
+            dataType:"json",
+            url:"/add/",
+            data:{
+                "classname":cc,
+                "name":uu,
+                "email":ee,
+                "password":pp,
+            },
+            success:function (api) {
+                console.log(api)
+            api.api.forEach(function (a) {
+                        console.log(a);
+                        $("#hh").append(
+                            "<tr>" +
+                            "<td>" + a.classname + "</td>" +
+                            "<td>" + a.name + "</td>" +
+                            "<td>" + a.email + "</td>" +
+                            "<td>" + a.password + "</td>" +
+                            "</tr>"
+
+                        )
+            })
+        }
+    })}
+</script>
+
+</body>
+</html>

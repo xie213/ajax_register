@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src='../static/jq/jquery-2.1.0.js'></script>
+</head>
+<body>
+<form action="" method="post">
+    <table align="center">
+        <th>
+            <input type="text" placeholder="电子邮箱" id="n1">
+            <input type="password" placeholder="密码" id="p1">
+            <button><a href="javaScript:denglu()">登录</a></button>
+            <button><a href="{{url_for('add_l')}}">注册</a></button>
+        </th>
+    </table>
+</form>
+<div class="container">
+        <table class="table table-striped"  align="center" >
+            <thead>
+            <tr>
+                <th>电子邮箱</th>
+                <th>密码</th>
+            </tr>
+            </thead>
+            <tbody id="oo" align="center">
+
+            </tbody>
+        </table>
+    </div>
+
+</form>
+<script>
+    function denglu() {
+        var nn = $('#n1').val()
+        var pp = $('#p1').val()
+        console.log(nn)
+        $("#oo").empty()
+        $.ajax({
+            type:"post",
+            dataType:"json",
+            url:"/login/",
+            data:{
+                "email":nn,
+                "password":pp,
+            },
+            success:function (api) {
+                console.log(api)
+            api.api.forEach(function (a) {
+                        console.log(a);
+                        $("#oo").append(
+                            "<tr>" +
+                            "<td>" + a.email + "</td>" +
+                            "<td>" + a.password + "</td>" +
+                            "</tr>"
+
+                        )
+            })
+        }
+    })}
+</script>
+
+</body>
+</html>
